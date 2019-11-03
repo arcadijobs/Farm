@@ -1,19 +1,10 @@
 package model.animal.home;
 
 public class Cow extends HomeAnimal {
-    private int resource;
 
-    public Cow(String name, int weight, int speed, int hp) {
-        super(name, weight, speed, hp);
+    public Cow(String name, int weight, int speed, int hp, int resource) {
+        super(name, weight, speed, hp, resource);
         canBeEaten = false;
-    }
-
-    public int getResource() {
-        return resource;
-    }
-
-    public void setResource(int resource) {
-        this.resource = resource;
     }
 
     public boolean isCanBeEaten() {

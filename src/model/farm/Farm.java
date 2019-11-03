@@ -1,14 +1,10 @@
 package model.farm;
 
-import Farm.model.animal.home.HomeAnimal;
+import model.animal.home.HomeAnimal;
 
 public class Farm {
     private Farmer farmer;
     private HomeAnimal[] homeAnimals;
-
-    public void addHomeAnimal(HomeAnimal homeAnimals) {
-        // TODO: 04.11.19
-    }
 
     public HomeAnimal getRandomHomeAnimal() {
         // TODO: 04.11.19
@@ -30,4 +26,13 @@ public class Farm {
     public void setHomeAnimals(HomeAnimal[] homeAnimals) {
         this.homeAnimals = homeAnimals;
     }
+
+  public void addHomeAnimal(HomeAnimal homeAnimal) {
+    for (int i = 0; i < homeAnimals.length; i++) {
+      if (this.homeAnimals[i] == null) {
+        this.homeAnimals[i] = homeAnimal;
+        break;
+      }
+    }
+  }
 }

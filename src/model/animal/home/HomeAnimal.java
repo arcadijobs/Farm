@@ -5,16 +5,18 @@ abstract public class HomeAnimal {
     private int weight;
     private int speed;
     private int hp;
-    protected boolean canBeEaten = true;
 
-    public HomeAnimal(String name, int weight, int speed, int hp ) {
+    private int resource;
+    protected boolean canBeEaten = true;
+    protected boolean canProduceResource = true;
+
+    public HomeAnimal(String name, int weight, int speed, int hp, int resource) {
         this.name = name;
         this.weight = weight;
         this.speed = speed;
         this.hp = hp;
+        this.resource = resource;
     }
-
-
 
     public String getName() {
         return name;
@@ -36,7 +38,7 @@ abstract public class HomeAnimal {
         return speed;
     }
 
-    public void setSpeed(int spped) {
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
@@ -46,6 +48,26 @@ abstract public class HomeAnimal {
 
     public void setHp(int hp) {
         this.hp = hp;
+    }
+
+    public boolean isCanBeEaten() {
+        return canBeEaten;
+    }
+
+    public void setCanBeEaten(boolean canBeEaten) {
+        this.canBeEaten = canBeEaten;
+    }
+
+    public boolean canProduceResource() {
+        return canProduceResource;
+    }
+
+    public int getResource() {
+        return resource;
+    }
+
+    public void setResource(int resource) {
+        this.resource = resource;
     }
 
     @Override
