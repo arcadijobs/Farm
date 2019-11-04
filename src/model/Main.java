@@ -37,61 +37,59 @@ public class Main {
     farm.addHomeAnimal(wuck);
     farm.addHomeAnimal(rogger);
 
-    int aliveHomeAnimalsCount = homeAnimals.length;
-
     while (farmer.isAlive()) {
-      // TODO: 11/4/2019
-      farmer.collectResources(homeAnimals);
+      farmer.collectResources(farm.getHomeAnimals());
+
       TimeUnit.SECONDS.sleep(1);
-      if (aliveHomeAnimalsCount > 0) {
-        int target = random.nextInt(aliveHomeAnimalsCount);
+      if (farm.hasAliveHomeAnimal()) {
         WildAnimal hunterAnimal = wildAnimals[random.nextInt(wildAnimals.length)];
-        HomeAnimal targetHomeAnimal = homeAnimals[target];
-        if (targetHomeAnimal != null && hunterAnimal.getDamage() > targetHomeAnimal.getHp()) {
-          hunterAnimal.attack(targetHomeAnimal);
-          System.out.println("Идет погоня");
+        HomeAnimal targetHomeAnimal = farm.getRandomHomeAnimal();
 
-          if (random.nextInt(100) < targetHomeAnimal.getSpeed() / hunterAnimal.getSpeed() * 100) {
-            System.out.println(targetHomeAnimal.getName() + " убежал(а)!!!");
-          } else {
-            if(targetHomeAnimal.getName().equalsIgnoreCase("Rogger")){
-              System.out.println("Rogger, БЛЯТЬ, НЕ УБЕЖАЛ !!!");
-            }
+        // TODO: 11/4/2019
+        //  if hunters damage is less than home animals hp,
+        //  than reduce hp of attacked home animal
+       if (hunterAnimal.getDamage() > targetHomeAnimal.getHp()) {
 
-            System.out.println(
-                hunterAnimal.getName() + " догнал и съел " + targetHomeAnimal.getName() + "!!!");
-            homeAnimals[target] = null;
-            aliveHomeAnimalsCount--;
+          farmAttacked(hunterAnimal, targetHomeAnimal);
 
-            homeAnimals = trimArrayFromNull(homeAnimals, aliveHomeAnimalsCount);
+          chaseHasBegun(farm, hunterAnimal, targetHomeAnimal);
 
-            if (homeAnimals.length > 0) {
-              System.out.println("В живых:");
-              for (HomeAnimal homeAnimal : homeAnimals) {
-                if (homeAnimal != null) {
-                  System.out.println("     " + homeAnimal.toString());
-                }
+          if (farm.hasAliveHomeAnimal()) {
+            System.out.println("В живых:");
+            for (HomeAnimal homeAnimal : farm.getHomeAnimals()) {
+              if (homeAnimal != null) {
+                System.out.println("     " + homeAnimal.toString());
               }
-            } else {
-              System.out.println("Домашних животных не осталось!!!");
             }
+          }else {
+            System.out.println("Домашних животных не осталось!!!");
           }
         }
       } else {
-        System.out.println("Сегодня никто не напал");
+        System.out.println("Сегодня никто не напал, есть то некого");
       }
       farmer.useResources();
     }
   }
 
-  private static HomeAnimal[] trimArrayFromNull(HomeAnimal[] homeAnimals, int aliveAnimalsCount) {
-    HomeAnimal[] newHomeAnimalsArray = new HomeAnimal[aliveAnimalsCount];
-    for (int i = 0, j = 0; i < homeAnimals.length; i++) {
-      if (homeAnimals[i] != null) {
-        newHomeAnimalsArray[j] = homeAnimals[i];
-        j++;
+  private static void chaseHasBegun(Farm farm, WildAnimal hunterAnimal, HomeAnimal targetHomeAnimal) {
+    Random random = new Random();
+
+    System.out.println("Идет погоня");
+    if (random.nextInt(100) < targetHomeAnimal.getSpeed() / hunterAnimal.getSpeed() * 100) {
+      System.out.println(targetHomeAnimal.getName() + " убежал(а)!!!");
+    } else {
+      if(targetHomeAnimal.getName().equalsIgnoreCase("Rogger")){
+        System.out.println("Rogger, БЛЯТЬ, НЕ УБЕЖАЛ !!!");
       }
+
+      System.out.println(
+          hunterAnimal.getName() + " догнал и съел " + targetHomeAnimal.getName() + "!!!");
+      farm.trimDeathHomeAnimals(targetHomeAnimal);
     }
-    return newHomeAnimalsArray;
+  }
+
+  private static void farmAttacked(WildAnimal hunterAnimal, HomeAnimal targetHomeAnimal) {
+    hunterAnimal.attack(targetHomeAnimal);
   }
 }
