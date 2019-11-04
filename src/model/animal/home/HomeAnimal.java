@@ -5,10 +5,12 @@ abstract public class HomeAnimal {
     private int weight;
     private int speed;
     private int hp;
-
     private int resource;
-    protected boolean canBeEaten = true;
-    protected boolean canProduceResource = true;
+
+    boolean canBeEaten = true;
+    boolean canProduceResource = true;
+    boolean isAttacked = false;
+
 
     public HomeAnimal(String name, int weight, int speed, int hp, int resource) {
         this.name = name;
@@ -69,6 +71,12 @@ abstract public class HomeAnimal {
     public void setResource(int resource) {
         this.resource = resource;
     }
+
+    public boolean isAttacked() {
+        return isAttacked;
+    }
+
+    public abstract void setAttacked(boolean attacked);
 
     @Override
     public String toString() {

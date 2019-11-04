@@ -1,6 +1,6 @@
 package model.animal.wild;
 
-import Farm.model.animal.home.HomeAnimal;
+import model.animal.home.HomeAnimal;
 
 abstract public class WildAnimal {
     private int weight;
@@ -8,6 +8,7 @@ abstract public class WildAnimal {
     private int hp;
     private int damage;
     private int attacksFailed;
+    private String name;
 
     public WildAnimal(int weight, int speed, int hp, int damage) {
     this.weight = weight;
@@ -16,7 +17,10 @@ abstract public class WildAnimal {
     this.damage = damage;
     }
 
-    public void attack(HomeAnimal homeAnimal){}
+    public void attack(HomeAnimal homeAnimal){
+        System.out.println(this.getName() + " напал(а)");
+        homeAnimal.setAttacked(true);
+    };
 
     public int getWeight() {
         return weight;
@@ -58,6 +62,13 @@ abstract public class WildAnimal {
         this.attacksFailed = attacksFailed;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public String toString() {

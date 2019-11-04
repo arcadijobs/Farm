@@ -14,4 +14,9 @@ public class Rabbit extends HomeAnimal {
         this.canBeEaten = canBeEaten;
     }
 
+    @Override
+    public void setAttacked(boolean attacked) {
+        this.isAttacked = attacked;
+        System.out.println(this.getName() + " увидел зверя и бежит от него");
+    }
 }

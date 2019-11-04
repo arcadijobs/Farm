@@ -7,6 +7,11 @@ public class Cow extends HomeAnimal {
         canBeEaten = false;
     }
 
+    public void setAttacked(boolean attacked){
+        this.isAttacked = true;
+        System.out.println(this.getName() + " увидела зверя и бежит от него");
+    }
+
     public boolean isCanBeEaten() {
         return canBeEaten;
     }
@@ -14,5 +19,4 @@ public class Cow extends HomeAnimal {
     public void setCanBeEaten(boolean canBeEaten) {
         this.canBeEaten = canBeEaten;
     }
-
 }

@@ -7,4 +7,10 @@ public class Cat extends HomeAnimal {
     this.canBeEaten = false;
     this.canProduceResource = false;
   }
+
+  @Override
+  public void setAttacked(boolean attacked) {
+    this.isAttacked = attacked;
+    System.out.println(this.getName() + " увидел зверя и бежит от него");
+  }
 }
